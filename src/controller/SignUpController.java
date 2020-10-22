@@ -1,6 +1,7 @@
 package controller;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.time.LocalDate;
 
 import javax.servlet.RequestDispatcher;
@@ -18,7 +19,8 @@ import utility.ConnectionManager;
 public class SignUpController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-
+	
+	
     public SignUpController() {
         super();
        
@@ -41,6 +43,15 @@ public class SignUpController extends HttpServlet {
 		
 		// Fill your code here
 		
+		User user = new User(password, email, LocalDate.now());
+		UserDAO userDAO = new UserDAO();
+		int checkUser = 0;
+		try {
+			checkUser = userDAO.signUp(user);
+		} catch (ClassNotFoundException | SQLException | IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		if(checkUser!=0)
 		{
